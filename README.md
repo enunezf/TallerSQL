@@ -55,6 +55,8 @@ Creación mediante el asistente gráfico
 
 ### Crear Base de datos de ejemplo
 Instrucción CREATE TABLE
+[CREATE DATABASE (Transac-SQL)](https://msdn.microsoft.com/es-es/library/ms176061.aspx "Referencia Microsoft")
+
 ```SQL
 CREATE DATABASE database_name   
 [ CONTAINMENT = { NONE | PARTIAL } ]  
@@ -144,6 +146,40 @@ LOG ON
     FILEGROWTH = 5MB ) ;  
 GO
 ```
+### Crear tablas de ejemplo
+Instrucción CREATE TABLE
+[CREATE TABLE (Transac-SQL)](https://msdn.microsoft.com/es-es/library/ms174979.aspx "Referencia Microsoft")
+```SQL
+CREATE TABLE   
+    [ database_name . [ schema_name ] . | schema_name . ] table_name   
+    ( { <column_definition> } [ ,...n ] )   
+[ ; ]
+```
+---
+#### Creación tabla con restricción de clave primaria y restricción de unicidad.
 
+```SQL
+CREATE TABLE dbo.Parametros (
+  parametro_id smallint NOT NULL PRIMARY KEY CLUSTERED,
+  codigo varchar(15) NOT NULL ,
+  valor varchar(50) NOT NULL,
+  CONSTRAINT PK_Parametros PRIMARY KEY CLUSTERED (parametro_id),
+  CONSTRAINT IX_Parametros_Codigo UNIQUE NONCLUSTERED (codigo),
+)
+ON [PRIMARY]
+```
+#### Creación tabla con restricción de clave primaria y clave foranea y valor por defecto.
 
+```SQL
+CREATE TABLE dbo.UbicacionGeo (
+  UbicacionId varchar(15) NOT NULL,
+  TipoUbicacionId varchar(15) NULL,
+  Abreviacion varchar(10) NULL,
+  Secuencia smallint NOT NULL DEFAULT (0),
+  Descripcion varchar(50) NOT NULL,
+  CONSTRAINT PK_UbicacionGeo PRIMARY KEY CLUSTERED (UbicacionId),
+  CONSTRAINT FK_Tipo_UbicacionGeo FOREIGN KEY (TipoUbicacionId) REFERENCES dbo.TipoUbicacionGeo (TipoUbicacionId)
+)
+ON [PRIMARY]
+```
 

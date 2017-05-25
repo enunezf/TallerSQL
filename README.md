@@ -54,7 +54,7 @@ Creación mediante el asistente gráfico
 ![alt text](https://github.com/enunezf/TallerSQL/blob/master/img/clase002-003.png "Acceso a servidor mediante Management Studio")
 
 ### Crear Base de datos de ejemplo
-Instrucción CREATE TABLE
+Instrucción CREATE DATABASE  
 [CREATE DATABASE (Transac-SQL)](https://msdn.microsoft.com/es-es/library/ms176061.aspx "Referencia Microsoft")
 
 ```SQL

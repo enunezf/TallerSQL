@@ -111,7 +111,7 @@ FILEGROUP filegroup name [ [ CONTAINS FILESTREAM ] [ DEFAULT ] | CONTAINS MEMORY
   | ERROR_BROKER_CONVERSATIONS  
 }
 ```
-#### Ejemplos de instrucción CREATE TABLE
+#### Ejemplos de instrucción CREATE DATABASE
 En este ejemplose crea la base de datos tallerSQL2 con los valores definidos por defecto en el servidor, los archivos de datos y log de transacciones se definirán en la ruta por defecto y la intercalación será la del servidor.
 
 ``` SQL
@@ -147,7 +147,7 @@ LOG ON
 GO
 ```
 ### Crear tablas de ejemplo
-Instrucción CREATE TABLE
+Instrucción CREATE TABLE  
 [CREATE TABLE (Transac-SQL)](https://msdn.microsoft.com/es-es/library/ms174979.aspx "Referencia Microsoft")
 ```SQL
 CREATE TABLE   

@@ -1,5 +1,5 @@
 # Introducción T-SQL
-## Taller teórico práctico
+## Taller teórico práctico - Clase 01
 
 ### Que es una base de datos
 * Conjunto de datos del mismo contexto y almacenados sistemáticamente para su posterior uso
@@ -44,4 +44,106 @@ Primera Forma Normal (1FN)
 ### Ejemplo Práctico
 - https://github.com/enunezf/TallerSQL.git
 - git@github.com:enunezf/TallerSQL.git
+
+## Clase 02 - creación de bases de datos y Tablas
+### Acceso a servidor mediante Management Studio
+![alt text](https://github.com/enunezf/TallerSQL/blob/master/img/clase002-001.png "Acceso a servidor mediante Management Studio")
+
+### Crear Base de datos de ejemplo
+Creación mediante el asistente gráfico
+![alt text](https://github.com/enunezf/TallerSQL/blob/master/img/clase002-003.png "Acceso a servidor mediante Management Studio")
+
+### Crear Base de datos de ejemplo
+Instrucción CREATE TABLE
+```SQL
+CREATE DATABASE database_name   
+[ CONTAINMENT = { NONE | PARTIAL } ]  
+[ ON   
+      [ PRIMARY ] <filespec> [ ,...n ]   
+      [ , <filegroup> [ ,...n ] ]   
+      [ LOG ON <filespec> [ ,...n ] ]   
+]   
+[ COLLATE collation_name ]  
+[ WITH  <option> [,...n ] ]  
+[;]  
+  
+<option> ::=  
+{  
+      FILESTREAM ( <filestream_option> [,...n ] )  
+    | DEFAULT_FULLTEXT_LANGUAGE = { lcid | language_name | language_alias }  
+    | DEFAULT_LANGUAGE = { lcid | language_name | language_alias }  
+    | NESTED_TRIGGERS = { OFF | ON }  
+    | TRANSFORM_NOISE_WORDS = { OFF | ON}  
+    | TWO_DIGIT_YEAR_CUTOFF = <two_digit_year_cutoff>   
+    | DB_CHAINING { OFF | ON }  
+    | TRUSTWORTHY { OFF | ON }  
+}  
+  
+<filestream_option> ::=  
+{  
+      NON_TRANSACTED_ACCESS = { OFF | READ_ONLY | FULL }  
+    | DIRECTORY_NAME = 'directory_name'   
+}  
+  
+<filespec> ::=   
+{  
+(  
+    NAME = logical_file_name ,  
+    FILENAME = { 'os_file_name' | 'filestream_path' }   
+    [ , SIZE = size [ KB | MB | GB | TB ] ]   
+    [ , MAXSIZE = { max_size [ KB | MB | GB | TB ] | UNLIMITED } ]   
+    [ , FILEGROWTH = growth_increment [ KB | MB | GB | TB | % ] ]  
+)  
+}  
+  
+<filegroup> ::=   
+{  
+FILEGROUP filegroup name [ [ CONTAINS FILESTREAM ] [ DEFAULT ] | CONTAINS MEMORY_OPTIMIZED_DATA ]  
+    <filespec> [ ,...n ]  
+}  
+  
+<service_broker_option> ::=  
+{  
+    ENABLE_BROKER  
+  | NEW_BROKER  
+  | ERROR_BROKER_CONVERSATIONS  
+}
+```
+#### Ejemplos de instrucción CREATE TABLE
+En este ejemplose crea la base de datos tallerSQL2 con los valores definidos por defecto en el servidor, los archivos de datos y log de transacciones se definirán en la ruta por defecto y la intercalación será la del servidor.
+
+``` SQL
+USE master;  
+GO  
+CREATE DATABASE tallerSQL2;  
+GO  
+-- Verify the database files and sizes  
+SELECT name, size, size*1.0/128 AS [Size in MBs]   
+FROM sys.master_files  
+WHERE name = N'tallerSQL2';  
+GO
+```
+---
+Crear una base de datos que especifica los archivos de datos y de registro de transacciones
+En el ejemplo siguiente se crea la base de datos tallerSQL3. Debido a que no se usa la palabra clave PRIMARY, el primer archivo (tallerSQL3_dat) se convierte en el archivo principal. Dado que no se especifica MB ni KB en el parámetro de tamaño para el archivo tallerSQL3_dat se utiliza MB y se asigna en megabytes. El tallerSQL3_log se asigna en megabytes porque el MB sufijo se indica explícitamente en la SIZE parámetro.
+``` SQL
+USE master;  
+GO  
+CREATE DATABASE tallerSQL3  
+ON   
+( NAME = tallerSQL3_dat,  
+    FILENAME = 'D:\MSSQLSERVER\DATA\tallerSQL3.mdf',  
+    SIZE = 10,  
+    MAXSIZE = 50,  
+    FILEGROWTH = 5 )  
+LOG ON  
+( NAME = tallerSQL3_log,  
+    FILENAME = 'D:\MSSQLSERVER\DATA\tallerSQL3.ldf',  
+    SIZE = 5MB,  
+    MAXSIZE = 25MB,  
+    FILEGROWTH = 5MB ) ;  
+GO
+```
+
+
 

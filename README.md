@@ -39,8 +39,9 @@ Primera Forma Normal (1FN)
 * Debe Existir una independencia del orden tanto de las filas como de las columnas, es decir, si los datos cambian de orden no deben cambiar sus significados
 
 ### BDR - EJEMPLO
+![alt text](https://github.com/enunezf/TallerSQL/blob/master/img/Modelo001.png "Ejemplo modelo relacional")
 
 ### Ejemplo Práctico
-https://github.com/enunezf/TallerSQL.git
-git@github.com:enunezf/TallerSQL.git
+- https://github.com/enunezf/TallerSQL.git
+- git@github.com:enunezf/TallerSQL.git
 
